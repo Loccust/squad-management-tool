@@ -1,12 +1,12 @@
 import React from 'react';
+import Home from './pages/home/home';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import MyTeams from './pages/my-teams/my-teams';
 
 function Routes() {
   return(
     <BrowserRouter>
             <Switch>
-                <Route path="/" exact={true} component={MyTeams} />
+                <Route path="/" exact={true} component={Home} />
                 {/* <Route path="/activities" component={YourTeam}/> */}
             </Switch>
         </BrowserRouter>

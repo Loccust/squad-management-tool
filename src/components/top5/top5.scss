@@ -1,0 +1,11 @@
+@import '../../App.scss';
+
+.top5{
+  background-color: $surface-color;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  position: relative;
+  margin-left: 25px;
+  min-width: 670px;
+  height: 47.5%;;
+}

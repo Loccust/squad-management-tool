@@ -1,0 +1,22 @@
+$base-color: #F7F3F7;
+$surface-color: #FFF;
+$primary-color: #C50341;
+$start-gradient-color: #C00E4F;
+$end-gradient-color: #8B206F;
+$selected-color: #F7EEF7;
+
+*{ 
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*, button, input {
+  border: 0;
+  background: none;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: $base-color;
+}

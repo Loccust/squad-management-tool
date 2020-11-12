@@ -1,0 +1,11 @@
+@import '../../App.scss';
+
+.my-teams{
+  background-color: $surface-color;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.05);
+  position: relative;
+  border-radius: 10px;
+  min-width: 670px;
+  height: 95%;
+  margin-right: 25px;
+}
