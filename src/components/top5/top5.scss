@@ -6,6 +6,13 @@
   border-radius: 10px;
   position: relative;
   margin-left: 25px;
-  min-width: 670px;
+  width: 50%;
   height: 47.5%;;
+}
+
+@media (max-width: $layout-breakpoint-small) {
+  .top5{
+    margin-left: 0;
+    width: 100%;
+  }
 }
