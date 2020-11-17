@@ -1,7 +1,6 @@
 import React from "react";
 import { useTable, useSortBy } from "react-table";
-import '../my-teams-table/my-teams-table';
-
+import { FaSort } from "react-icons/fa";
 const Table = ({ columns, data }) => {
   const {
     getTableProps,
@@ -28,6 +27,7 @@ const Table = ({ columns, data }) => {
               return (
                 <td className="td" key={index} {...column.getHeaderProps(column.getSortByToggleProps())}>
                   {column.render("Header")}
+                  <FaSort/>
                 </td>
               )
           })}

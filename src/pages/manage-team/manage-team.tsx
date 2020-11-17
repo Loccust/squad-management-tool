@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
 import './manage-team.scss';
 import { MdAdd } from "react-icons/md";
-import { JsxElement } from 'typescript';
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 interface Props{
   id: string;
 }
 const ManageTeam: React.FC<Props> = ( id ) => {
-  var i = 0;
   const[real, setType] = useState(false);
   const[selectedFormation, setFormation] = useState([0, 0, 0]);
   const listFormations: Array<string> = [
@@ -15,10 +14,22 @@ const ManageTeam: React.FC<Props> = ( id ) => {
     "4-4-3"
   ];
 
-  var formations = listFormations.map((fundation) => fundation.split('-').map((number) => parseInt(number)));
   function setSelectedOption(index: string){
-    setFormation(formations[parseInt(index)]);
-    console.log(selectedFormation)
+    var formationsValues = listFormations.map((fundation) => fundation.split('-').map((number) => parseInt(number)));
+    setFormation(formationsValues[parseInt(index)]);
+    console.log(selectedFormation);
+
+    // selectedFormation.forEach(formation =>{
+    //   setPositions(formation)
+    // });
+  }
+  function setPositions( formation: number ){
+    console.log(formation)
+    for(var i = 0; i < formation; i++){
+        return( <div className="player">
+        <MdAdd key={i} className="icon-plus"/>
+      </div>);
+    }
   }
 
   return (
@@ -83,16 +94,9 @@ const ManageTeam: React.FC<Props> = ( id ) => {
               </span>
 
               <div className="management-field">   
-                {selectedFormation.map(() => (
-                  <div>
-                    {selectedFormation.map((formation) => {
-                      while(i < formation){
-                        return(
-                          <div className="player">
-                              <MdAdd className="icon-plus"/>
-                          </div>
-                        )
-                    }})}
+                {selectedFormation.map((formation, index) => (
+                  <div key={index}>
+                    {setPositions(formation)}
                   </div>
                 ))}     
                   <div>
@@ -106,7 +110,24 @@ const ManageTeam: React.FC<Props> = ( id ) => {
           <div>
             <div className="field-group">
               <span className="label">Search players</span>
-              <input type="text" placeholder="Ronal"/>
+              <input type="text" placeholder="player name"/>
+            </div>
+            <div className="cards-players">
+              <div className="card">
+                <div>
+                  <span className="player-name">
+                    <span className="label">Name: </span> <span className="value">Cristiano Ronaldo</span>
+                  </span>
+                  <span className="player-age">
+                    <span className="label">Age: </span> <span className="value">32</span>
+                  </span>
+                </div>
+                <div>
+                  <span className="player-nacionality">
+                    <span className="label">Nacionality: </span> <span className="value">Portugal</span>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
