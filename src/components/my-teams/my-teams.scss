@@ -1,4 +1,4 @@
-@import '../../App.scss';
+@import '../../utils.scss';
 
 .my-teams{
   background-color: $surface-color;
@@ -31,6 +31,7 @@ div.title {
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 0;
     cursor: pointer;
 }
 

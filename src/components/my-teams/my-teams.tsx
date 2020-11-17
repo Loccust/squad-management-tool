@@ -2,6 +2,8 @@ import React from 'react';
 import './my-teams.scss';
 import MyTeamsTable from'../my-teams-table/my-teams-table';
 import { MdAdd } from "react-icons/md";
+import { Link } from 'react-router-dom';
+
 
 const data = [
   { name: "Barcelona", description: "Barcelona Squad" },
@@ -34,9 +36,11 @@ function MyTeams() {
       <div className="my-teams">
         <div className="title">
           <span>My teams</span>
-          <button className="add-team">
-            <MdAdd />
-          </button>
+          <Link to="/manage-team">
+            <button className="add-team">
+              <MdAdd />
+            </button>
+          </Link>
         </div>
         <div className="table-container">
           <MyTeamsTable columns={columns} data={data}/>
