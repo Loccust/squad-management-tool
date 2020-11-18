@@ -1,6 +1,6 @@
 import React from 'react';
 import './my-teams.scss';
-import MyTeamsTable from'../my-teams-table/my-teams-table';
+import MyTeamsTable from'./my-teams-table/my-teams-table';
 import { MdAdd } from "react-icons/md";
 import { Link } from 'react-router-dom';
 
