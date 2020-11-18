@@ -1,7 +1,9 @@
 import React from 'react';
 import { useDrop } from "react-dnd";
+import { MdAdd } from "react-icons/md";
+import './droppable.scss'
 
-const Droppable = (children) => {
+function Droppable(props) {
   const [{canDrop, isOver}, drop] = useDrop({
       accept: 'Card',
       drop: () => ({name: 'Player'}),
@@ -11,11 +13,11 @@ const Droppable = (children) => {
       }),
   });
 
-  console.log('options', {canDrop, isOver});
-
   return (
       <div ref={drop}>
-        {children}
+        <div className="player">
+          <MdAdd className="icon-plus"/>
+        </div>
       </div>
   )
 }

@@ -69,7 +69,9 @@ const ManageTeam: React.FC<Props> = ( id ) => {
           <div className="manage-team-content">
             <div>
               <Field/>
-              <button type="submit" id="save">Save</button>
+              <div className="field-group">
+                <button type="submit" id="save">Save</button>
+              </div>
             </div>
             <div>
               <div className="field-group">
@@ -77,7 +79,7 @@ const ManageTeam: React.FC<Props> = ( id ) => {
                 <input type="text" placeholder="player name"/>
               </div>
                 <div className="cards-players">
-                  <div>
+                  <div className="card">
                     <Draggable/>
                   </div>
                 </div>

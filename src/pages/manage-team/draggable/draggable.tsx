@@ -1,19 +1,26 @@
 import React from 'react';
 import { useDrag } from "react-dnd";
+import { connect } from 'react-redux';
 import "./draggable.scss";
 
-function Draggable() {
+function Draggable(props) {
+    var { newValue } = props;
     const [{ isDragging }, drag] = useDrag({
         item: { name: 'Player', type: 'Card' },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
+        end: (dropResult, monitor) => {
+            newValue = monitor.didDrop();
+            console.log(newValue);
+        },
     });
 
-    const opacity = isDragging ? 0.6 : 1;
 
+    const opacity = isDragging ? 0.6 : 1;
+    
     return (
-        <div ref={drag} className='card' style={{  opacity }}>
+        <div ref={drag} key={props}  style={{ opacity }}>
             <div>
                 <span className="player-name">
                     <span className="label">Name: </span>
@@ -33,4 +40,7 @@ function Draggable() {
     )
 }
 
-export default Draggable;
+const mapStateToProps = store => ({
+    newValue: store.dropState.newValue
+  });
+export default connect(mapStateToProps) (Draggable);

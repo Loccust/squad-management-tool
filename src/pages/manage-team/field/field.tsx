@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import { MdAdd } from "react-icons/md";
 import Droppable from '../droppable/droppable';
 import { useDrop } from "react-dnd";
 import './field.scss';
@@ -11,16 +10,6 @@ function Field(){
     "3-4-3",
     "4-3-3"
   ];
-  const [{canDrop, isOver}, drop] = useDrop({
-    accept: 'Card',
-    drop: () => ({name: 'Player'}),
-    collect: (monitor) => ({
-        isOver: monitor.isOver(),
-        canDrop: monitor.canDrop(),
-    }),
-  });
-
-  console.log('options', {canDrop, isOver});
 
   function setSelectedOption(index: string){
     var formationsValues = listFormations.map((
@@ -33,11 +22,8 @@ function Field(){
     var formations = [] as any[];
     for(var i = 0; i < formation; i++){
       formations.push(
-      <div key={i}>
-        <div key={i} className="player" ref={drop}>
-          <MdAdd key={i} className="icon-plus"/>
-        </div>
-      </div>);
+        <Droppable key={i}/>
+      );
     }
     return formations;
   }
@@ -58,11 +44,9 @@ function Field(){
               {setPositions(formation)}
             </div>
           ))}     
-            <div id="goalkeeper">
-              <div className="player" ref={drop}>
-                <MdAdd className="icon-plus"/>
-            </div>
-          </div> 
+          <div id="goalkeeper">
+            <Droppable/> 
+          </div>
         </div>              
       </div>
 )}
