@@ -1,6 +1,10 @@
 import { UPDATE_DROP } from './action-types';
 
-export const DropCard = value => ({
+export const dropItem = (dropped, index, text) => ({
     type: UPDATE_DROP,
-    newValue: value
+    payload: {
+      dropped,
+      index,
+      text
+    }
   });

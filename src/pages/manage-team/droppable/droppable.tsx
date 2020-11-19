@@ -1,9 +1,11 @@
 import React from 'react';
 import { useDrop } from "react-dnd";
 import { MdAdd } from "react-icons/md";
+import { connect } from 'react-redux';
 import './droppable.scss'
 
 function Droppable(props) {
+  var { payload } = props;
   const [{canDrop, isOver}, drop] = useDrop({
       accept: 'Card',
       drop: () => ({name: 'Player'}),
@@ -21,5 +23,7 @@ function Droppable(props) {
       </div>
   )
 }
-
-export default Droppable;
+const mapStateToProps = store => ({
+  payload: store.dropState.payload
+});
+export default connect(mapStateToProps) (Droppable);

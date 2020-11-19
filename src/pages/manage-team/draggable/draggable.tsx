@@ -1,26 +1,31 @@
 import React from 'react';
 import { useDrag } from "react-dnd";
+import { dropItem } from '../../.../../../actions/actions'
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import "./draggable.scss";
 
 function Draggable(props) {
-    var { newValue } = props;
+    var {
+        dropItem,
+        payload
+      } = props;
+    console.log(props);
     const [{ isDragging }, drag] = useDrag({
         item: { name: 'Player', type: 'Card' },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
         end: (dropResult, monitor) => {
-            newValue = monitor.didDrop();
-            console.log(newValue);
+            payload = monitor.didDrop();
+            console.log(payload);
+            dropItem(payload, 1, 'CR');
         },
     });
-
-
-    const opacity = isDragging ? 0.6 : 1;
+    const opacity = isDragging ? 0.6 : 1;    
     
     return (
-        <div ref={drag} key={props}  style={{ opacity }}>
+        <div ref={drag} key={props.index}  style={{ opacity }}>
             <div>
                 <span className="player-name">
                     <span className="label">Name: </span>
@@ -41,6 +46,9 @@ function Draggable(props) {
 }
 
 const mapStateToProps = store => ({
-    newValue: store.dropState.newValue
+    payload: store.dropState.payload
   });
-export default connect(mapStateToProps) (Draggable);
+
+  const mapDispatchToProps = dispatch =>
+  bindActionCreators({ dropItem }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps) (Draggable);
