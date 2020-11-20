@@ -1,28 +1,31 @@
 import React from 'react';
 import { useDrag } from "react-dnd";
-import { dropItem } from '../../.../../../actions/actions'
+import { setDropPlayer } from '../../.../../../actions/actions';
+import { CARD } from '../../.../../../actions/action-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import "./draggable.scss";
 
 function Draggable(props) {
-    var {
-        dropItem,
-        payload
-      } = props;
-    console.log(props);
+    var setDropPlayer = props.setDropPlayer,
+        positions: Array<any> = props.positions, 
+        text: string = props.text;
+      console.log(positions);
+
     const [{ isDragging }, drag] = useDrag({
-        item: { name: 'Player', type: 'Card' },
+        item: { name: 'Player', type: CARD },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
         end: (dropResult, monitor) => {
-            payload = monitor.didDrop();
-            console.log(payload);
-            dropItem(payload, 1, 'CR');
+            positions.forEach((position, index) =>{
+                if(position.lastDropped)
+                    setDropPlayer(index, text);
+            });
+            //if(monitor.didDrop())
         },
     });
-    const opacity = isDragging ? 0.6 : 1;    
+    const opacity = isDragging ? 0.8 : 1;    
     
     return (
         <div ref={drag} key={props.index}  style={{ opacity }}>
@@ -46,9 +49,9 @@ function Draggable(props) {
 }
 
 const mapStateToProps = store => ({
-    payload: store.dropState.payload
+    positions: store.dropState.positions
   });
 
-  const mapDispatchToProps = dispatch =>
-  bindActionCreators({ dropItem }, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ setDropPlayer }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps) (Draggable);

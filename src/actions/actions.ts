@@ -1,10 +1,17 @@
-import { UPDATE_DROP } from './action-types';
+import { UPDATE_PLAYER, UPDATE_POSITION } from './action-types';
 
-export const dropItem = (dropped, index, text) => ({
-    type: UPDATE_DROP,
-    payload: {
-      dropped,
+export const setDropPlayer = (index, text) => ({
+    type: UPDATE_PLAYER,
+    newValue: {
       index,
       text
+    }
+  });
+
+  export const setDropPosition = (index, lastDropped) => ({
+    type: UPDATE_POSITION,
+    newValue: {
+      index,
+      lastDropped
     }
   });

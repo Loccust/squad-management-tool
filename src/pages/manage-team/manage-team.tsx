@@ -80,7 +80,7 @@ const ManageTeam: React.FC<Props> = ( id ) => {
               </div>
                 <div className="cards-players">
                   <div className="card">
-                    <Draggable/>
+                    <Draggable text="CR"/>
                   </div>
                 </div>
             </div>

@@ -1,19 +1,31 @@
 import React from 'react';
 import { useDrop } from "react-dnd";
 import { MdAdd } from "react-icons/md";
+import { setDropPosition } from '../../.../../../actions/actions';
+import { CARD } from '../../.../../../actions/action-types';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import './droppable.scss'
 
 function Droppable(props) {
-  var { payload } = props;
+  var {
+    index,
+    setDropPosition,
+    positions
+  } = props;
+  console.log(props);
+
   const [{canDrop, isOver}, drop] = useDrop({
-      accept: 'Card',
-      drop: () => ({name: 'Player'}),
+      accept: CARD,
+      drop() {
+        setDropPosition(index, true);
+      },
       collect: (monitor) => ({
           isOver: monitor.isOver(),
           canDrop: monitor.canDrop(),
-      }),
-  });
+        }),
+      });
+
 
   return (
       <div ref={drop}>
@@ -24,6 +36,9 @@ function Droppable(props) {
   )
 }
 const mapStateToProps = store => ({
-  payload: store.dropState.payload
+  positions: store.dropState.positions
 });
-export default connect(mapStateToProps) (Droppable);
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ setDropPosition }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps) (Droppable);

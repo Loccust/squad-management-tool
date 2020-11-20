@@ -22,7 +22,7 @@ function Field(){
     var formations = [] as any[];
     for(var i = 0; i < formation; i++){
       formations.push(
-        <Droppable key={i}/>
+        <Droppable key={i+1} index={i+1}/>
       );
     }
     return formations;
@@ -40,12 +40,12 @@ function Field(){
 
         <div className="management-field">   
           {selectedFormation.map((formation, index) => (
-            <div key={index}>
+            <div key={index} >
               {setPositions(formation)}
             </div>
           ))}     
           <div id="goalkeeper">
-            <Droppable/> 
+            <Droppable key={0} index={0}/> 
           </div>
         </div>              
       </div>
