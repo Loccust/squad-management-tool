@@ -1,8 +1,7 @@
 import React from 'react';
 import { useDrop } from "react-dnd";
-import { MdAdd } from "react-icons/md";
-import { setDropPosition } from '../../.../../../actions/actions';
-import { CARD } from '../../.../../../actions/action-types';
+import { setDropPosition } from '../../../redux/actions/actions';
+import { CARD } from '../../../redux/actions/action-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import './droppable.scss'
@@ -13,24 +12,22 @@ function Droppable(props) {
     setDropPosition,
     positions
   } = props;
-  console.log(props);
 
   const [{canDrop, isOver}, drop] = useDrop({
-      accept: CARD,
-      drop() {
-        setDropPosition(index, true);
-      },
-      collect: (monitor) => ({
-          isOver: monitor.isOver(),
-          canDrop: monitor.canDrop(),
-        }),
-      });
-
+    accept: CARD,
+    drop() {
+      setDropPosition(index, true);
+    },
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
+  });
 
   return (
-      <div ref={drop}>
-        <div className="player">
-          <MdAdd className="icon-plus"/>
+      <div ref={drop} key={index}>
+        <div className="player" key={index}>
+          <span key={index}>{positions[index].text == ''? '+' : positions[index].text}</span>
         </div>
       </div>
   )

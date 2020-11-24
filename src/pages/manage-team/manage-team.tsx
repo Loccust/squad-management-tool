@@ -5,13 +5,21 @@ import Draggable from './draggable/draggable';
 import Droppable from './droppable/droppable';
 import Field from "./field/field";
 import './manage-team.scss';
+import Player from '../../models/player-model';
+import { connect } from 'react-redux';
+import Position from '../../models/position-model';
 
-interface Props{
-  id: string;
-}
-
-const ManageTeam: React.FC<Props> = ( id ) => {
+function ManageTeam(props) {
+  const players: Array<Player> = props.players;
+  const positions:Array<Position> = props.positions;
   const[real, setType] = useState(false);
+  const id:number = props.id;
+  console.log(props);  
+
+  const removeSelected = player => {
+    if(positions.some(position => position.playerId !== player.id))
+      return player;
+  };
 
   return (
     <>
@@ -79,9 +87,11 @@ const ManageTeam: React.FC<Props> = ( id ) => {
                 <input type="text" placeholder="player name"/>
               </div>
                 <div className="cards-players">
-                  <div className="card">
-                    <Draggable text="CR"/>
-                  </div>
+                  {players.map((player, index)=> (
+                    <div className="card" key={index}>
+                      <Draggable key={index} player={player}/>
+                    </div>
+                  ))}
                 </div>
             </div>
           </div>
@@ -91,4 +101,9 @@ const ManageTeam: React.FC<Props> = ( id ) => {
   );
 }
 
-export default ManageTeam;
+const mapStateToProps = store => ({
+  positions: store.dropState.positions,
+  players: store.dropState.players,
+});
+
+export default connect(mapStateToProps)(ManageTeam);

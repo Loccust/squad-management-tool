@@ -1,16 +1,16 @@
 import React from 'react';
 import { useDrag } from "react-dnd";
-import { setDropPlayer } from '../../.../../../actions/actions';
-import { CARD } from '../../.../../../actions/action-types';
+import { setDropPlayer } from '../../../redux/actions/actions';
+import { CARD } from '../../../redux/actions/action-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import "./draggable.scss";
+import Player from '../../../models/player-model';
 
 function Draggable(props) {
     var setDropPlayer = props.setDropPlayer,
         positions: Array<any> = props.positions, 
-        text: string = props.text;
-      console.log(positions);
+        player: Player = props.player;
 
     const [{ isDragging }, drag] = useDrag({
         item: { name: 'Player', type: CARD },
@@ -20,28 +20,33 @@ function Draggable(props) {
         end: (dropResult, monitor) => {
             positions.forEach((position, index) =>{
                 if(position.lastDropped)
-                    setDropPlayer(index, text);
+                    setDropPlayer(player.id, index, getInitials(player.name));
             });
-            //if(monitor.didDrop())
         },
     });
-    const opacity = isDragging ? 0.8 : 1;    
+    const opacity = isDragging ? 0.8 : 1;
+
+    const getInitials = (name:string) => {
+        var [firstName, lastName] = name.split(' ');
+        var initials = firstName.split('')[0] + lastName.split('')[0];
+        return initials;
+    }
     
     return (
         <div ref={drag} key={props.index}  style={{ opacity }}>
             <div>
                 <span className="player-name">
                     <span className="label">Name: </span>
-                    <span className="value">Cristiano Ronaldo</span>
+                    <span className="value">{player.name}</span>
                 </span>
                 <span className="player-age">
                     <span className="label">Age: </span> 
-                    <span className="value">32</span>
+                    <span className="value">{player.age}</span>
                 </span>
             </div>
             <div>
                 <span className="player-nacionality">
-                    <span className="label">Nacionality: </span> <span className="value">Portugal</span>
+                    <span className="label">Nacionality: </span> <span className="value">{player.nacionality}</span>
                 </span>
             </div>
         </div>

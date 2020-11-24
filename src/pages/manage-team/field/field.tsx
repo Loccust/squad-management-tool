@@ -18,11 +18,17 @@ function Field(){
     setFormation(formationsValues[parseInt(index)]);
   }
 
-  function setPositions( formation: number ){
+  function setPositions( formation: number, index: number){
     var formations = [] as any[];
+    var offset = 0;
+    if(index == 1)
+      offset = selectedFormation[index - 1];
+    else if(index == 2)
+      offset = selectedFormation[index - 1] + selectedFormation[index - 2];
+
     for(var i = 0; i < formation; i++){
       formations.push(
-        <Droppable key={i+1} index={i+1}/>
+        <Droppable key={i+1} index={i + 1 + offset}/>
       );
     }
     return formations;
@@ -41,7 +47,7 @@ function Field(){
         <div className="management-field">   
           {selectedFormation.map((formation, index) => (
             <div key={index} >
-              {setPositions(formation)}
+              {setPositions(formation, index)}
             </div>
           ))}     
           <div id="goalkeeper">
