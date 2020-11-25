@@ -80,21 +80,24 @@ export const DropReducer = (state = initialState, action) => {
 
     case UPDATE_PLAYER:
       var positions = [...state.positions]; 
+      var playerList = [...state.players]; 
       positions[action.newValue.index].playerId = action.newValue.playerId;
       positions[action.newValue.index].text = action.newValue.text;
       positions[action.newValue.index].lastDropped = false;
+      let playerAvailableList = playerList.filter(player =>  player.id !== positions[action.newValue.index].playerId);
+      console.log(playerAvailableList);
       return { 
        ...state,
        positions: positions,
+       players: playerAvailableList
       }
 
     case UPDATE_POSITION:
       var positions = [...state.positions]; 
-      var playerList = [...state.players]; 
       positions[action.newValue.index].lastDropped = action.newValue.lastDropped;
       return { 
        ...state,
-       positions: positions,
+       positions: positions
       }
 
     case UPDATE_LISTPLAYERS:
